@@ -148,8 +148,7 @@ class Oipa_Client
         $url .= '?publisher_ref=org_ref_1&publisher_name=org_name_1&xml_source_url=' . urlencode($json_decoded->resources[0]->url) . '&xml_ref=' . urlencode($json_decoded->name);
        	$context  = stream_context_create($opts);
         $result = file_get_contents($url, false, $context);
-        var_dump($result);
-        exit();
+        
 
         /*
 		
