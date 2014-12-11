@@ -34,7 +34,10 @@
                 	No
                 <?php endif; ?>
                 </td>
-                <td><a href='http://tools.aidinfolabs.org/showmydata/index.php?url=http://<?php echo $_SERVER['SERVER_NAME'].$this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfActivities['filename']?>' target='_blank'>IATI Data</a> | <a href='http://tools.aidinfolabs.org/csv/direct_from_registry/?xml=http://<?php echo $_SERVER['SERVER_NAME'].$this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfActivities['filename']?>' target='_blank'>CSV</a></td>
+                <td>
+                    <a target='_blank' href='<?php echo Zend_Registry::get('config')->oipa->front_end_url; ?>projects/?xml_source_ref=<?php echo str_replace(".xml", "", $fileOfActivities['filename']); ?>'>OIPA front-end</a> | 
+                    <a target='_blank' href='<?php echo Zend_Registry::get('config')->oipa->url; ?>api/v3/activities/?format=json&xml_source_ref=<?php echo str_replace(".xml", "", $fileOfActivities['filename']); ?>'>OIPA JSON</a> | 
+                    <a href='http://tools.aidinfolabs.org/showmydata/index.php?url=http://<?php echo $_SERVER['SERVER_NAME'].$this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfActivities['filename']?>' target='_blank'>IATI Data</a> | <a href='http://tools.aidinfolabs.org/csv/direct_from_registry/?xml=http://<?php echo $_SERVER['SERVER_NAME'].$this->baseUrl().Zend_Registry::get('config')->xml_folder.$fileOfActivities['filename']?>' target='_blank'>CSV</a></td>
                 <?php
                     $class = "delete-files";
                     if($fileOfActivities['pushed_to_registry']){

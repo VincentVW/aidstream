@@ -19,7 +19,7 @@ class Iati_Core_Registry
         $this->setApiKey($apiKey);
         $this->setPublisherInfo($publisherInfo);        
     }
-    
+        
     public function initializeAdapters()
     {
         // Generate json as per registry version
@@ -106,28 +106,32 @@ class Iati_Core_Registry
     }
     
     public function pushToRegistry($json)
-    {
-        $filename =explode('.',$this->file->get('name'));
-        $tmpfile = $filename[0];
+    {   
+        $oipa = new Oipa_Client();
+        $url = $oipa->base_url . "synchroniser/request-parse-url/";
+        $oipa->make_request("GET", $url, $json);
 
-        try{
-            if($this->file->get('isPushedToRegistry')){
-                $response = $this->apiClient->put_package_entity($tmpfile, $json);
-            } else{
-                $response = $this->apiClient->post_package_register($json);
-            }
+        // $filename =explode('.',$this->file->get('name'));
+        // $tmpfile = $filename[0];
+
+        // try{
+        //     if($this->file->get('isPushedToRegistry')){
+        //         $response = $this->apiClient->put_package_entity($tmpfile, $json);
+        //     } else{
+        //         $response = $this->apiClient->post_package_register($json);
+        //     }
             
-            if($response){
-                $this->file->saveRegistryPublishInfo($response);
-            } else {
-                $this->error = "Your file could not be published in IATI Registry.";
-                $this->error .= " {$this->apiClient->getError()}";
-            }
+        //     if($response){
+        //         $this->file->saveRegistryPublishInfo($response);
+        //     } else {
+        //         $this->error = "Your file could not be published in IATI Registry.";
+        //         $this->error .= " {$this->apiClient->getError()}";
+        //     }
 
-        } catch (Exception $e) {
-            print '<p><strong>Caught exception on Publishing to Registry: ' . $e->getMessage() . '</strong></p>';
-            exit;
-        }
+        // } catch (Exception $e) {
+        //     print '<p><strong>Caught exception on Publishing to Registry: ' . $e->getMessage() . '</strong></p>';
+        //     exit;
+        // }
         $this->response = $response;
     }
 }

@@ -24,6 +24,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $autoloader->registerNamespace('Iati_');
         $autoloader->registerNamespace('App_');
         $autoloader->registerNamespace('Ckan_');
+        $autoloader->registerNamespace('Oipa_');
     }
     
     protected function _initRegistry()
@@ -149,6 +150,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $registry = Zend_Registry::getInstance();
         $registry->mailer = new App_Email();
         return $registry;
+    }
+
+    protected function _initSetupBaseUrl() {
+        $this->bootstrap('frontcontroller');
+        $controller = Zend_Controller_Front::getInstance();
+        $controller->setBaseUrl('/aidstream'); 
     }
 
 }
